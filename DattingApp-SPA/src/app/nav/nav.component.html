@@ -1,0 +1,65 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/home']">Application de rencontre</a>
+
+    <!-- supprimé pour ne pas utiliser JQuery -->
+    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> -->
+  <!-- ********************* -->
+  
+    <!-- <div class="collapse navbar-collapse" id="navbarsExampleDefault"> -->
+      <ul class="navbar-nav mr-auto">
+        <!-- class="nav-item" routerLinkActive="active" pour surligner au survol des liens -->
+        <li class="nav-item" routerLinkActive="active">
+          <!-- on tape a-router et le routerLink est auto implémenté -->
+          <a class="nav-link" [routerLink]="['/members']">Matches</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link"[routerLink]="['/lists']">Listes</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/messages']">Messages</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a  *ngIf="loggedIn()" class="nav-link" (click)="logOut()">Logout</a>
+        </li> -->
+        <!-- <div *ngif="loggedIn()" class="dropdown">
+          <a class="nav-link dropdown-toggle text-light">
+            welcome{{authService.decodeToken?.unique_name}}
+          </a>  
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-divider"></a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div> -->
+      </ul>
+  
+      <div *ngIf="loggedIn()" class="dropdown" dropdown>
+        <span>
+          <img src="{{photoUrl || '../../../assets/user.png'}}" alt="">
+        </span>
+        <a class="dropdown-toggle text-light" dropdownToggle>
+          Bienvenue {{authService.decodedToken?.unique_name | titlecase}}
+        </a>
+      
+        <div class="dropdown-menu mt-3" *dropdownMenu>
+          <a class="dropdown-item" [routerLink]="['/members/edit']">
+            <i class="fa fa-user"></i> Editer le profil</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#"><i class="fa fa-sign-out"(click)="logOut()">logout</i></a>
+        </div>
+      </div>
+  
+      <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline my-2 my-lg-0"(ngSubmit)="login()">
+        <input class="form-control mr-sm-2" type="text" name="userName" 
+        placeholder="UserName" requiered [(ngModel)]="model.userName" (change)="setLogin()">
+  
+        <input class="form-control mr-sm-2" type="password" name="Password" 
+        placeholder="Password" requiered [(ngModel)]="model.Password">
+        <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
+
+      </form>
+  </div>
+</nav>

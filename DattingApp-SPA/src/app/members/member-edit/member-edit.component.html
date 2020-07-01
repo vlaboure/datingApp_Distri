@@ -1,0 +1,79 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-sm-4">
+      <h1>Votre profil</h1>
+    </div>
+    <div *ngIf="editForm.dirty" class="col-sm-8">
+      <div class="alert alert-info">
+        <strong>Attention </strong>Vous avez fait des changements sans valider, vos modifications seront perdues
+      </div>
+  </div> 
+  </div>
+  <div class="row">  
+    <div class="col-sm-4">
+      <div class="card">
+        <img src="{{photoUrl || '../../../assets/user.png'}}" alt="{{user.knownAs}}" class="card-img-top img-thumbnail">
+      
+        <div class="card-body">
+          <div>
+            <strong>Location</strong>
+            <p>{{user.city}}, {{user.country}}</p>
+          </div>
+          <div>
+            <strong>Age</strong>
+            <p>{{user.age}}</p>
+          </div>
+          <div>
+            <strong>Last active</strong>
+            <p>{{user.lastActive | timeago}}</p>
+          </div>
+          <div>
+            <strong>Create</strong>
+            <p>{{user.created | date: 'mediumDate'}}</p>
+          </div>
+
+        </div>
+        <div class="card-footer">
+          <!-- button-block-> toute la largeur désactivé si pas de changement-->
+          <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block">Sauver</button>
+        </div>
+      </div>  
+    </div>
+    <!-- ici on fait un container avec des onglets tabmodule -->
+      <div class="col-sm-8">
+        <div class="tab-panel">
+          <tabset class="member-tabset">
+            <tab heading="Editer le profile">
+              <form #editForm="ngForm" id="editForm" (ngSubmit)="updateUser()">
+                <h4>Description ?</h4>
+                <textarea name="introduction" rows="6" class="form-control"
+                 [(ngModel)]="user.introduction"></textarea>
+                <h4>Vous cherchez ?</h4>
+                <textarea name="lookingFor" rows="6" class="form-control"
+                 [(ngModel)]="user.lookingFor">
+                </textarea>
+                 <h4>Centres d'interêt?</h4>
+                <textarea name="interests" rows="6" class="form-control"
+                  [(ngModel)]="user.interests">
+                </textarea>
+                  <div class="form-inline mt-2">
+                    <label for="city"><strong> Ville</strong></label>
+                    <input type="text" class="form-control" name="city" [(ngModel)]="user.city">
+                    <label for="city"><strong>Pays</strong></label>
+                    <input type="text" class="form-control" name="country" [(ngModel)]="user.country"> 
+                    <label for="city"><strong>Nom</strong></label>
+                    <input type="text" class="form-control" name="userName" [(ngModel)]="user.userName">                   
+                  </div>
+              </form>
+            </tab>     
+            <tab heading="Editer les photos">
+                <!-- on lie output getMemberPhotoChange de l'enfant photo-editor
+                  à une méthode a ajouter dans le member-edit.component.ts  -->
+              <app-photo-editor [photos]="user.photos"           
+              (getMemeberPhotoChange)="updateMainPhoto($event)"></app-photo-editor>
+            </tab>    
+            </tabset>
+        </div>
+      </div>
+    </div>
+  </div>

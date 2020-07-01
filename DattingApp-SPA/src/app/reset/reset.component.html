@@ -1,0 +1,52 @@
+<form [formGroup]="resetForm"(ngSubmit)="resetPassword()">
+  <!-- <div class="form-group">
+    <!-- && resetForm.get('password').touched supprimé dans chk ngif -->
+    <div class="form-group">
+      <div >
+        <strong class="row justify-content-center title">Reset mot de passe de {{login}}</strong>
+      </div>
+      <!-- && registerForm.get('password').touched supprimé dans chk ngif -->
+      <input type="password" 
+      [ngClass]="{'is-invalid': resetForm.get('password').errors && 
+      resetForm.get('password').touched}"
+      class="form-control" formControlName= "password"
+      placeholder="mot de passe">
+      <div class="invalid-feedback"
+        *ngIf="resetForm.get('password').hasError('required')">
+        Entrer un mot de passe
+      </div>
+      <div class="invalid-feedback"
+        *ngIf="resetForm.get('password').hasError('minlength')">
+        Entrer un mot de passe de minimum 6 caractères
+      </div>
+      <div class="invalid-feedback"
+        *ngIf="resetForm.get('password').hasError('maxlength')">
+        Entrer un mot de passe de maximum 12 caractères
+      </div>
+    </div>
+
+  <div class="form-group"> 
+    <input type="password" 
+    [ngClass]="{'is-invalid': resetForm.get('confirmpassword').errors
+    && resetForm.get('confirmpassword').touched
+    || resetForm.get('confirmpassword').touched
+    && resetForm.hasError('mismatch')}"
+    class="form-control" formControlName= "confirmpassword"
+    placeholder="confirmer mot de passe">
+
+    <div class="invalid-feedback"
+      *ngIf="resetForm.get('confirmpassword').hasError('required')">
+      Entrer un mot de passe
+    </div>
+    <div class="invalid-feedback"
+      *ngIf="resetForm.hasError('mismatch')">
+      Entrer un mot de passe identique
+    </div>
+  </div> 
+
+  <div class="form-group text-center">
+    <button class="btn btn-success" [disabled]="!resetForm.valid" type="submit">Valider </button>
+    <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
+  </div>
+
+</form>

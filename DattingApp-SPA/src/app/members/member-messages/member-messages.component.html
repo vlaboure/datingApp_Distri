@@ -1,0 +1,56 @@
+<div class="card">
+  <div class="card-body">
+    <div *ngIf="messages?.length === 0">
+      <p>Pas de message pour le moment</p>
+    </div> 
+    <ul class="chat">
+      <li *ngFor="let message of messages">
+        <!-- à elle lui sender = user détail -->
+        <div *ngIf="message.senderId == receptId">
+          <span class="chat-img float-left">
+            <img src="{{message.senderPhotoUrl}}" alt="{{message.senderKnownAs}}" class="rounded-circle">
+          </span>
+          <div class="chat-body">
+            <div class="header">            
+              <strong class="primary-font float-left">{{message.senderKnownAs}}</strong>
+              <small class="text-muted">
+                <span class="fa fa-clock-o">{{message.messageSent | timeago}}</span>
+              </small> 
+            </div>
+            <p>{{message.content}}</p>
+
+          </div>
+        </div>
+        <!-- à moi sender different user détail-->
+        <div *ngIf="message.senderId != receptId">
+          <span class="chat-img float-right">
+            <img src="{{message.senderPhotoUrl}}" alt="{{message.senderKnownAs}}" class="rounded-circle">
+          </span>
+          <div class="chat-body">
+            <div class="header">             
+              <small class="text-muted">
+                <span class="fa fa-clock-o"> Envoyé {{message.messageSent | timeago}}</span>
+                <span *ngIf="!message.isRead" class="text-danger">(Non lu)</span>               
+                <span *ngIf="message.isRead" class="fa fa-clock-o"> lu : {{message.dateRead | timeago}}</span>               
+              </small>             
+                <strong class="primary-font float-right">{{message.senderKnownAs}}</strong>
+            </div>
+            <p>{{message.content}}</p>
+          </div>
+        </div>
+      </li> 
+    </ul>
+    <div class="card-footer">
+      <form #messageForm="ngForm" (ngSubmit)="messageForm.valid && sendMessage()">
+        <div class="input-group">
+          <span class="input-group-append">
+            <button class="btn btn-light" [disabled]="!messageForm.valid"> Message </button>
+          </span>
+            <!-- <input class="form-control" cols="40" line="10" name="content" [(ngModel)]=newMessage.content> -->
+            <textarea class="form-control" cols="40" line="10" name="content" [(ngModel)]=newMessage.content></textarea>
+        </div>
+      </form>
+    </div> 
+  </div>
+</div>
+

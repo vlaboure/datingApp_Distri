@@ -1,0 +1,109 @@
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+  <h2 class="text-center text-primary">Sign Up</h2>
+  <hr>
+  <div class="form-group">
+    <label class="control-label" style="margin-right:10px">Je suis: </label>
+    <label class="radio-inline">
+      <input class="mr-3" type="radio" value="male" formControlName="gender">Un homme
+    </label>
+    <label class="radio-inline ml-3">
+      <input class="mr-3" type="radio" value="female" formControlName="gender">Une femme
+    </label>
+  </div>
+
+  <div class="form-group">
+    <!-- implémentation des controles de saise -->
+    <input type="text" 
+    [ngClass]="{'is-invalid': registerForm.get('username').errors 
+      && registerForm.get('username').touched}"
+    class="form-control" formControlName="username"
+    placeholder="Nom">
+    <div class="invalid-feedback">Entrer un nom de user</div>
+  </div>
+
+  <div class="form-group">
+    <input [ngClass]="{'is-invalid': registerForm.get('knownAs').errors 
+      && registerForm.get('knownAs').touched}" class="form-control"
+      placeholder="Pseudo" formControlName="knownAs">
+        <!-- ici ca marche aussi si juste
+        <div class="invalid-feedback">Entrer un nom de user</div> -->
+    <div class="invalid-feedback" *ngIf="registerForm.get('knownAs').touched 
+      && registerForm.get('knownAs').hasError('required')">Renseignez le pseudo</div>
+  </div>
+
+  <div class="form-group">
+    <input [ngClass]="{'is-invalid': registerForm.get('dateOfBirth').errors 
+      && registerForm.get('dateOfBirth').touched}" class="form-control"
+      placeholder="Date de naissance" formControlName="dateOfBirth" type="text" bsDatepicker [bsConfig]="bsConfig">
+              <!-- ici ca marche aussi si juste
+        <div class="invalid-feedback">Entrer un nom de user</div> -->
+    <div class="invalid-feedback" *ngIf="registerForm.get('dateOfBirth').touched 
+      && registerForm.get('dateOfBirth').hasError('required')">Renseignez  la date de naissance</div>
+  </div>
+
+  <div class="form-group">
+    <input [ngClass]="{'is-invalid': registerForm.get('city').errors 
+      && registerForm.get('city').touched}" class="form-control"
+      placeholder="Ville" formControlName="city">
+              <!-- ici ca marche aussi si juste
+        <div class="invalid-feedback">Entrer un nom de user</div> -->
+    <div class="invalid-feedback" *ngIf="registerForm.get('city').touched 
+      && registerForm.get('city').hasError('required')">Renseignez la ville</div>
+  </div>
+
+  <div class="form-group">
+    <input [ngClass]="{'is-invalid': registerForm.get('country').errors 
+      && registerForm.get('country').touched}" class="form-control"
+      placeholder="Pays" formControlName="country">
+              <!-- ici ca marche aussi si juste
+        <div class="invalid-feedback">Entrer un nom de user</div> -->
+    <div class="invalid-feedback" *ngIf="registerForm.get('country').touched 
+      && registerForm.get('country').hasError('required')">Renseignez le pays</div>
+  </div>
+
+  <div class="form-group">
+    <!-- && registerForm.get('password').touched supprimé dans chk ngif -->
+    <input type="password" 
+    [ngClass]="{'is-invalid': registerForm.get('password').errors && 
+    registerForm.get('password').touched}"
+    class="form-control" formControlName= "password"
+    placeholder="mot de passe">
+    <div class="invalid-feedback"
+      *ngIf="registerForm.get('password').hasError('required')">
+      Entrer un mot de passe
+    </div>
+    <div class="invalid-feedback"
+      *ngIf="registerForm.get('password').hasError('minlength')">
+      Entrer un mot de passe de minimum 6 caractères
+    </div>
+    <div class="invalid-feedback"
+      *ngIf="registerForm.get('password').hasError('maxlength')">
+      Entrer un mot de passe de maximum 12 caractères
+    </div>
+  </div>
+
+  <div class="form-group">
+      <!-- && registerForm.get('password').touched supprimé dans chk ngif -->
+    <input type="password" 
+    [ngClass]="{'is-invalid': registerForm.get('confirmpassword').errors
+    && registerForm.get('confirmpassword').touched
+    || registerForm.get('confirmpassword').touched
+    && registerForm.hasError('mismatch')}"
+    class="form-control" formControlName= "confirmpassword"
+    placeholder="confirmer mot de passe">
+    <div class="invalid-feedback"
+      *ngIf="registerForm.get('confirmpassword').hasError('required')">
+      Entrer un mot de passe
+    </div>
+    <div class="invalid-feedback"
+      *ngIf="registerForm.hasError('mismatch')">
+      Entrer un mot de passe identique
+    </div>
+  </div>
+
+  <div class="form-group text-center">
+    <button class="btn btn-success" [disabled]="!registerForm.valid" type="submit">Valider </button>
+    <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
+  </div>
+  
+</form>

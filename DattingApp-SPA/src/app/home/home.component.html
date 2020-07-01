@@ -1,0 +1,30 @@
+<div class="container mt-5">
+  <div *ngIf="!registerMode" style="text-align: center">
+    <h1>Trouvez l'amour</h1>
+    <p class="lead">Trouvez votre âme soeur... Il suffit de s'inscrire!</p>
+    <div class="text-center">
+      <button class="btn btn-primary btn-lg mr-2"(click)="registerToggle()">Register</button>
+      <button class="btn btn-info btn-lg">Learn more</button>
+    </div>
+  </div>
+          <!-- registerMode récupéré par le emit de register.compnenet.ts si registerMode==true on affiche register mode  -->
+  <div *ngIf="registerMode && !reset" class="container">
+    <div class="row justify-content-center">
+      <div class="col-4">
+          <!-- si click sur register appel de register.component -->
+        <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
+            <!-- version avec option / relation parent enfant ramenant à api.values -->
+        <!-- <app-register [valuesFromHome] = "values" (cancelRegister)="cancelRegisterMode($event)"></app-register> -->
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center"> 
+    <!-- *ngIf="login" -->
+    <button target="_blank" class="text-link link-help lienMotDePasseOublie"(click)="resetPassword()"
+      >mot de passe oublié</button>
+  </div>   
+    <div *ngIf="reset" class="row justify-content-center lienMotDePasseOublie">
+        <app-reset (cancelReset)="cancelResetMode($event)"></app-reset>
+  </div>
+</div>
+<!-- <p *ngFor="let value of values">{{value.name}}</p> -->

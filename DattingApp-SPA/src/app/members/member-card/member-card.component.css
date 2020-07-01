@@ -1,0 +1,35 @@
+.card :hover{
+    transform: scale(1.1, 1.1);/*agrandir*/
+    transition-duration: 500ms;/*temps pour revenir */
+    transition-timing-function: ease-out;
+    opacity: 0.9;
+
+}
+.card img{
+    transform: scale(1.0,1.0);/*taille normale*/
+    transition-duration: 1800ms;
+    transition-timing-function: ease-out;
+}
+.card-img-warper{
+    overflow: hidden;
+    position: relative;
+}
+    /*groupe de boutons*/
+.member-icons{
+    position: absolute;
+    bottom: -30%;/*btn cachés*/
+    left: 0;
+    right: 0;
+    margin-right: auto;/*center les bouton*/
+    margin-left: auto;/*center les bouton*/
+    opacity: 0;/*btn invisibles*/
+}
+/*quand on survole une image  mais que pour les boutons*/
+.card-img-warper:hover .member-icons{
+    bottom: 0; /*montrer les boutons*/
+    opacity: 1;
+}
+    /*pour que les boutons montent de -30 à 0 en 0.3s*/
+.animate{
+    transition: all 0.3s ease-in-out;
+}

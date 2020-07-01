@@ -1,0 +1,10 @@
+.vs
+.vscode
+bin
+obj
+*.db 
+*.txt
+*.docx
+appsettings.json
+*.txt
+wwwroot
